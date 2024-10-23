@@ -10,6 +10,7 @@
  */
 #include "SAE.h"
 
+
 /**
  * \brief Remplit les tableaux avec les informations des offres de stages à partir d'un fichier.
  * 
@@ -121,6 +122,58 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
     fclose(flot);
     return 1; // Fonction réussi
 }
+
+
+/**
+ * \brief Sauvegarde les modifications apportées aux stages et aux étudiants dans un fichier.
+ * 
+ * Cette fonction enregistre les modifications effectuées sur les offres de stages 
+ * et les notes des étudiants dans un fichier, afin de préserver les données après l'exécution 
+ * du programme. Elle met à jour les fichiers en fonction des tableaux passés en paramètres.
+ * 
+ * \param tRef[] Tableau contenant les références des stages.
+ * \param tDpt[] Tableau contenant les départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[] Tableau contenant les IDs des premiers étudiants affectés aux stages.
+ * \param tEtu2[] Tableau contenant les IDs des seconds étudiants affectés aux stages.
+ * \param tEtu3[] Tableau contenant les IDs des troisièmes étudiants affectés aux stages.
+ * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tNumEtu[] Tableau contenant les IDs des étudiants.
+ * \param tRefStage[] Tableau contenant les références de stages associées aux étudiants.
+ * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \return 1 si la sauvegarde s'est bien effectuée, -1 en cas d'erreur.
+ */
+int modificationFichier(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
+    FILE *flot;
+    flot = fopen("DATA/offrestage.txt", "w");
+    if (flot == NULL) return -1;
+
+    for (int i = 0; i < *tlog; i++) {
+        fprintf(flot, "\n%d %d\n%d\n%d", tRef[i], tDpt[i], tPourvu[i], tCandid[i]);
+        if (tPourvu[i] == 0) {
+            if (tCandid[i] == 3) fprintf(flot, "\n%d\n%d\n%d", tEtu1[i], tEtu2[i], tEtu3[i]);
+            else if (tCandid[i] == 2) fprintf(flot, "\n%d\n%d", tEtu1[i], tEtu2[i]);
+            else if (tCandid[i] == 1) fprintf(flot, "\n%d", tEtu1[i]);
+        }
+    }
+
+    fclose(flot);
+    
+    flot = fopen("DATA/etudiants.txt", "w");
+    if (flot == NULL) return -1;
+
+    if (*tlogEtu > 0) {
+        for (int i = 0; i < *tlogEtu; i++) {
+            fprintf(flot, "%d %d %.2f\n", tNumEtu[i], tRefStage[i], tNoteFinal[i]);
+        }
+    }
+
+    fclose(flot);
+    return 1; // Fonction réussi
+}
+
 
 /**
  * \brief Affiche les informations de tous les stages présents dans les tableaux.
