@@ -1,4 +1,17 @@
+/**
+ * \file SAE.h
+ * \brief Fichier contenant les déclarations des fonctions du programme de gestion des stages.
+ *
+ * Ce fichier contient les déclarations des fonctions utilisées pour gérer les offres de stages, 
+ * les étudiants, et les responsables dans le programme de gestion des stages.
+ *
+ * \authors MIOTTO Quentin, PICHOT-MOÏSE Mathéo
+ * \date 23 Octobre 2024
+ *
+ * Ce fichier permet de centraliser les déclarations des fonctions pour les utiliser dans les différents fichiers source du programme.
+ */
 #include <stdio.h>
+#include <stdlib.h>
 
 // Remplir Tableaux
 int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax);
@@ -8,6 +21,8 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFInal[], in
 int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax);
 int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre, int tNumEtu[], int tRefStage[], int *tlogEtu);
 int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlog);
+int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu);
+int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog);
 int menuResponsable(void);
 int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFInal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu);
 

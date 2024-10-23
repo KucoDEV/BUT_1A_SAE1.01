@@ -1,3 +1,13 @@
+/**
+ * \file SAE.c
+ * \brief Gestion des stages et des étudiants.
+ *
+ * Ce fichier contient les fonctions nécessaires à la gestion des offres de stages,
+ * des candidatures et des affectations des étudiants dans un système de suivi des stages.
+ *
+ * \authors MIOTTO Quentin, PICHOT-MOÏSE Mathéo
+ * \date 23 Octobre 2024
+ */
 #include "SAE.h"
 
 /**
