@@ -283,6 +283,21 @@ int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[]
     }
 }
 
+/**
+ * \brief Supprime une offre de stage du tableau.
+ * 
+ * Cette fonction permet de supprimer une offre de stage à partir de sa référence. 
+ * Les informations sur ce stage et les étudiants affectés sont supprimées, 
+ * et les éléments des tableaux sont réorganisés pour combler le vide laissé.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des IDs des étudiants affectés.
+ * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \return 1 si le stage a été supprimé avec succès, -1 si le stage n'a pas été trouvé.
+ */
 int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog) {
     int ref, dept;
     printf("\nNuméro de référence du stage à supprimer: ");
@@ -308,6 +323,25 @@ int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
     return -1;
 }
 
+/**
+ * \brief Affecte un étudiant à un stage spécifique.
+ * 
+ * Cette fonction permet d'affecter un étudiant à un stage en vérifiant d'abord s'il est déjà 
+ * assigné à un autre stage. Si l'affectation est valide, l'étudiant est ajouté au stage, 
+ * et les candidatures du stage sont mises à jour en conséquence.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
+ * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants.
+ * \return 1 si l'affectation a réussi, -1 en cas d'erreur ou si le stage est déjà complet.
+ */
 int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
     int ref, place, x;
 
