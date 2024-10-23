@@ -133,7 +133,53 @@ int menuResponsable(void) {
 }
 
 int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
+    int choix, code;
+    choix = menuResponsable();
+    while (choix != 10) {
+        switch (choix) {
+            // Action :
+            case 1: // Ajouter une offre de stage
+                code = 0;
+                break;
 
+            case 2: // Supprimer une offre de stage
+                code = 0;
+                break;
+
+            case 3: // Affecter un stage à un étudiant
+                code = 0;
+                break;
+
+            case 4: // Afficher tous les stages
+                code = 0;
+                break;
+
+            case 5: // Afficher les stages pourvus avec étudiants affectés
+                code = 0;
+                break;
+
+            case 6: // Afficher les stages non pourvus
+                code = 0;
+                break;
+
+            case 7: // Afficher les étudiants sans stage
+                code = 0;
+                break;
+
+            case 8: // Rechercher un stage par numéro ou département
+                code = 0;
+                break;
+
+            case 9: // Afficher les informations d'un stage donné
+                code = 0;
+                break;
+
+            default: // Choix invalide
+                printf("\nChoix non valide !\n");
+                break;
+        }
+        choix = menuResponsable();
+    }
 }
 
 
