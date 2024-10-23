@@ -214,6 +214,17 @@ int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[
     return 1; // Fonction réussi
 }
 
+/**
+ * \brief Affiche les étudiants qui n'ont pas encore de stage.
+ * 
+ * Cette fonction parcourt le tableau des étudiants et affiche ceux qui n'ont pas 
+ * encore été affectés à un stage, en montrant leur numéro et d'autres informations pertinentes.
+ * 
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants.
+ * \return 1 si tout s'est bien passé.
+ */
 int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu) {
     printf("\nÉtudiants sans stage :\n");
     for (int i = 0; i < *tlogEtu; i++) {
@@ -224,6 +235,20 @@ int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu) {
     return 1; // Fonction réussi
 }
 
+/**
+ * \brief Affiche les détails d'un stage particulier.
+ * 
+ * Cette fonction affiche les informations complètes d'un stage à partir de sa référence,
+ * incluant les étudiants affectés, les départements, et le statut de pourvu ou non.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau des candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés.
+ * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \return 1 si tout s'est bien passé, -1 si le stage n'a pas été trouvé.
+ */
 int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog) {
     int ref;
     printf("\nNuméro de référence du stage à afficher: ");
@@ -238,6 +263,7 @@ int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     }
     return -1; // Stage non trouver
 }
+
 
 int rechercherStage(int tRef[], int tDpt[], int *tlog) {
     int choix, valeurRecherchee;

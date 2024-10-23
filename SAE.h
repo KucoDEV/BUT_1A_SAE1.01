@@ -25,6 +25,7 @@ int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu);
 int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog);
 int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog);
 int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFInal[], int *tlogEtu);
+int rechercherStage(int tRef[], int tDpt[], int *tlog);
 int menuResponsable(void);
 int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFInal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu);
 
