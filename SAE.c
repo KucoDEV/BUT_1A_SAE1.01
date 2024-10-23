@@ -112,7 +112,22 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
     return 1; // Fonction réussi
 }
 
-
+/**
+ * \brief Affiche les informations de tous les stages présents dans les tableaux.
+ * 
+ * Cette fonction affiche les informations des stages à partir des tableaux, incluant 
+ * les références, les départements, l'état pourvu ou non, le nombre de candidatures 
+ * et les étudiants candidats.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des IDs des étudiants affectés.
+ * \param tlog Pointeur sur le nombre total d'offres à afficher.
+ * \param tmax Nombre maximal d'offres dans le tableau.
+ * \return 1 si tout s'est bien passé.
+ */
 int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
     int code;
 
