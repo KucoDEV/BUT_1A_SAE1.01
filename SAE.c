@@ -138,6 +138,34 @@ int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
     return 1; // Fonction réussi
 }
 
+int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
+    int ref, dept;
+    
+    printf("\nNuméro de référence du stage: ");
+    scanf("%d", &ref);
+    printf("Département du stage: ");
+    scanf("%d", &dept);
+
+    for (int i = 0; i < *tlog; i++) {
+        if (tRef[i] == ref) return -1; // Stage existe déjà
+    }
+    
+    if (*tlog < tmax) {
+        tRef[*tlog] = ref;
+        tDpt[*tlog] = dept;
+        tPourvu[*tlog] = 0;
+        tCandid[*tlog] = 0;
+        tEtu1[*tlog] = 0;
+        tEtu2[*tlog] = 0;
+        tEtu3[*tlog] = 0;
+        (*tlog)++;
+        return 1; // Fonction réussi
+    }
+    else {
+        return -2; // Tableau trop petit
+    }
+}
+
 /**
  * \brief Affiche le menu du responsable.
  *
@@ -193,7 +221,10 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
         switch (choix) {
             // Action :
             case 1: // Ajouter une offre de stage
-                code = 0;
+                code = ajoutStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tmaxOffre);
+                if (code == 1) printf("\nLe stage a été ajouté avec succès !\n");
+                if (code == -1) printf("\nLe stage avec ce numéro de référence et ce département existe déjà !\n");
+                if (code == -2) printf("\nLe tableau est trop petit !\n");
                 break;
 
             case 2: // Supprimer une offre de stage
