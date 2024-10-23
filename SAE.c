@@ -113,6 +113,14 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
 }
 
 
+/**
+ * \brief Affiche le menu du responsable.
+ *
+ * Cette fonction présente les différentes options disponibles pour un responsable,
+ * comme la gestion des stages et les affectations des étudiants.
+ * 
+ * \return Le choix de l'utilisateur correspondant à une option du menu.
+ */
 int menuResponsable(void) {
     int choix;
     printf("\nAction :\n");
