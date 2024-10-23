@@ -82,7 +82,14 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
     return 1; // Fonction réussi
 }
 
-
+/**
+ * \brief Affiche le menu principal du programme pour la sélection de l'utilisateur.
+ * 
+ * Cette fonction présente les différentes options aux utilisateurs pour qu'ils puissent
+ * sélectionner leur rôle : étudiant, responsable ou jury.
+ * 
+ * \return Le choix de l'utilisateur sous forme d'un entier correspondant à une option du menu.
+ */
 int menuGlobal(void) {
     int choix;
     printf("\nAction :\n");
