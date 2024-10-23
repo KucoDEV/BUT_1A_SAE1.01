@@ -138,6 +138,44 @@ int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
     return 1; // Fonction réussi
 }
 
+int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre, int tNumEtu[], int tRefStage[], int *tlogEtu) {
+    int stagePourvu = 0;
+
+    printf("REF\tDPT\tETU\n");
+
+    for (int i = 0; i < *tlogOffre; i++) {
+        if (tPourvu[i] == 1) {
+            printf("%d\t%d", tRef[i], tDpt[i]);
+
+            int etudiantAffecte = 0;
+            for (int j = 0; j < *tlogEtu; j++) {
+                if (tRefStage[j] == tRef[i]) {
+                    etudiantAffecte = tNumEtu[j];
+                    break;
+                }
+            }
+            printf("\t%d\n", etudiantAffecte);
+            stagePourvu = 1;
+        }
+    }
+
+    if (stagePourvu == 0) {
+        printf("\nAucun stage pourvu pour le moment.\n");
+    }
+    return 1; // Fonction réussi
+}
+
+int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlog) {
+    printf("\nStages non pourvus :\n");
+    printf("REF\tDPT\tNB CANDID\n");
+    for (int i = 0; i < *tlog; i++) {
+        if (tPourvu[i] == 0) {
+            printf("%d\t%d\t%d\n", tRef[i], tDpt[i], tCandid[i]);
+        }
+    }
+    return 1; // Fonction réussi
+}
+
 /**
  * \brief Ajoute une nouvelle offre de stage dans les tableaux.
  * 
