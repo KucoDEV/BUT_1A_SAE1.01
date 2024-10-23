@@ -138,6 +138,22 @@ int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
     return 1; // Fonction réussi
 }
 
+/**
+ * \brief Ajoute une nouvelle offre de stage dans les tableaux.
+ * 
+ * Cette fonction permet d'ajouter un nouveau stage en saisissant les informations pertinentes
+ * telles que la référence du stage, le département associé, le nombre de candidatures, 
+ * et les étudiants affectés. Si le stage existe déjà, il ne sera pas ajouté.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des IDs des étudiants affectés.
+ * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tmax Nombre maximal d'offres dans le tableau.
+ * \return 1 si le stage a été ajouté avec succès, -1 ou -2 si il y a eu une erreur.
+ */
 int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
     int ref, dept;
     
