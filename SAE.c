@@ -204,6 +204,31 @@ int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[
     return 1; // Fonction réussi
 }
 
+int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu) {
+    printf("\nÉtudiants sans stage :\n");
+    for (int i = 0; i < *tlogEtu; i++) {
+        if (tRefStage[i] == -1) {
+            printf("ID Étudiant: %d\n", tNumEtu[i]);
+        }
+    }
+    return 1; // Fonction réussi
+}
+
+int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog) {
+    int ref;
+    printf("\nNuméro de référence du stage à afficher: ");
+    scanf("%d", &ref);
+
+    for (int i = 0; i < *tlog; i++) {
+        if (tRef[i] == ref) {
+            printf("\nInformations du stage :\n");
+            printf("REF: %d, DPT: %d, Pourvu: %d, Candidats: %d, ETU1: %d, ETU2: %d, ETU3: %d\n", tRef[i], tDpt[i], tPourvu[i], tCandid[i], tEtu1[i], tEtu2[i], tEtu3[i]);
+            return 1; // Fonction réussi
+        }
+    }
+    return -1; // Stage non trouver
+}
+
 /**
  * \brief Ajoute une nouvelle offre de stage dans les tableaux.
  * 
@@ -330,7 +355,7 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 break;
 
             case 7: // Afficher les étudiants sans stage
-                code = 0;
+                code = afficherEtudiantsSansStage(tNumEtu, tRefStage, tlogEtu);
                 break;
 
             case 8: // Rechercher un stage par numéro ou département
@@ -338,7 +363,8 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 break;
 
             case 9: // Afficher les informations d'un stage donné
-                code = 0;
+                code = afficherInfoStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre);
+                if (code == -1) printf("\nStage non trouvé !\n");
                 break;
 
             default: // Choix invalide
