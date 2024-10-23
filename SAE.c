@@ -113,6 +113,16 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
 }
 
 
+int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
+    int code;
+
+    printf("\nREF\tDPT\tPOURVU\tCANDID\tETU1\tETU2\tETU3\n");
+    for (int i=0; i < *tlog; i++) {
+        printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\n", tRef[i], tDpt[i], tPourvu[i], tCandid[i], tEtu1[i], tEtu2[i], tEtu3[i]);
+    }
+    return 1; // Fonction réussi
+}
+
 /**
  * \brief Affiche le menu du responsable.
  *
@@ -180,7 +190,7 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 break;
 
             case 4: // Afficher tous les stages
-                code = 0;
+                code = afficherTableau(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tmaxOffre);
                 break;
 
             case 5: // Afficher les stages pourvus avec étudiants affectés
