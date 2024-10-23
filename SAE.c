@@ -113,6 +113,25 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
 }
 
 
+int menuResponsable(void) {
+    int choix;
+    printf("\nAction :\n");
+    printf("\t1. Ajouter une offre de stage\n");
+    printf("\t2. Supprimer une offre de stage\n");
+    printf("\t3. Affecter un stage à un étudiant\n");
+    printf("Affichage :\n");
+    printf("\t4. Afficher tous les stages\n");
+    printf("\t5. Afficher les stages pourvus avec étudiants\n");
+    printf("\t6. Afficher les stages non pourvus\n");
+    printf("\t7. Afficher les étudiants sans stage\n");
+    printf("\t8. Rechercher un stage (par numéro ou département)\n");
+    printf("\t9. Afficher les informations d'un stage donné\n");
+    printf("\t10. Quitter\n");
+    printf("Votre choix: ");
+    scanf("%d", &choix);
+    return choix;
+}
+
 int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
 
 }
