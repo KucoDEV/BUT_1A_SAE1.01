@@ -82,6 +82,19 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
     return 1; // Fonction réussi
 }
 
+
+int menuGlobal(void) {
+    int choix;
+    printf("\nAction :\n");
+    printf("\t1. Responsable\n");
+    printf("\t2. Elève\n");
+    printf("\t3. Jury\n");
+    printf("\t4. Quitter\n");
+    printf("Votre choix : ");
+    scanf("%d", &choix);
+    return choix;
+}
+
 void global(void) {
     int choix, code;
     // Tableaux Offres De Stages
@@ -104,5 +117,27 @@ void global(void) {
     else if (code == -2) {
         printf("\nLe fichier étudiant est vide !\n");
         exit(1); // Termine tout
+    }
+
+    choix = menuGlobal();
+    while(choix!=4) {
+        switch (choix) {
+            case 1: // Partie Responsable
+                code = globalResponsable();
+                break;
+            
+            case 2: // Partie Etudiants
+                code = globalEtudiant();
+                break;
+            
+            case 3: // Partie Jury
+                code = globalJury();
+                break;
+
+            default: // Choix invalide
+                printf("\nChoix non valide !\n");
+                break;
+        }
+        choix = menuGlobal();
     }
 }
