@@ -322,11 +322,11 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 break;
 
             case 5: // Afficher les stages pourvus avec étudiants affectés
-                code = 0;
+                code = afficherStagesPourvus(tRef, tDpt, tPourvu, tlogOffre, tNumEtu, tRefStage, tlogEtu);
                 break;
 
             case 6: // Afficher les stages non pourvus
-                code = 0;
+                code = afficherStagesNonPourvus(tRef, tDpt, tPourvu, tCandid, tlogOffre);
                 break;
 
             case 7: // Afficher les étudiants sans stage
