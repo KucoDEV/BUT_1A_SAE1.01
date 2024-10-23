@@ -587,6 +587,14 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 }
 
 
+/**
+ * \brief Affiche le menu pour les étudiants.
+ * 
+ * Cette fonction présente les options disponibles pour les étudiants, incluant la consultation 
+ * des stages disponibles, la gestion des candidatures, et la déconnexion.
+ * 
+ * \return Le choix de l'étudiant, correspondant à une des options du menu.
+ */
 int menuEtudiant(void) {
     int choix;
     printf("\nAction :\n");
@@ -604,6 +612,13 @@ int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 }
 
 
+/**
+ * \brief Affiche le menu pour le jury.
+ * 
+ * Cette fonction affiche un menu simple permettant au jury de choisir une action.
+ * 
+ * \return Le choix de l'utilisateur.
+ */
 int menuJury(void) {
     int choix;
     printf("\nAction :\n");
