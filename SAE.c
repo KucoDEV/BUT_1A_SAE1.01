@@ -301,15 +301,15 @@ void global(void) {
     while(choix!=4) {
         switch (choix) {
             case 1: // Partie Responsable
-                code = globalResponsable();
+                code = globalResponsable(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tNumEtu, tRefStage, tNoteFinal, &tlogOffre, tmaxOffre, &tlogEtu, tmaxEtu);
                 break;
             
             case 2: // Partie Etudiants
-                code = globalEtudiant();
+                code = globalEtudiant(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tNumEtu, tRefStage, tNoteFinal, &tlogOffre, tmaxOffre, &tlogEtu, tmaxEtu);
                 break;
             
             case 3: // Partie Jury
-                code = globalJury();
+                code = globalJury(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tNumEtu, tRefStage, tNoteFinal, &tlogOffre, tmaxOffre, &tlogEtu, tmaxEtu);
                 break;
 
             default: // Choix invalide
