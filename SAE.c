@@ -55,6 +55,33 @@ int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     return 1; // Fonction réussi
 }
 
+int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlog, int tmax) {
+    int i=0, num, ref;
+    float note;
+    FILE *flot;
+    flot = fopen("DATA/etudiants.txt", "r");
+
+    if (flot == NULL) return -1; // Erreur lors du chargement
+
+    fscanf(flot,"%d%d%f", &num, &ref, &note);
+    while(!feof(flot)) {
+        if (i < tmax) {
+            tNumEtu[i] = num;
+            tRefStage[i] = ref;
+            tNoteFinal[i] = note;
+            (*tlog)++;
+            i++;
+            fscanf(flot,"%d%d%f", &num, &ref, &note);
+        }
+        else {
+            fclose(flot);
+            return -2; 
+        }
+    }
+    fclose(flot);
+    return 1; // Fonction réussi
+}
+
 void global(void) {
     int choix, code;
     // Tableaux Offres De Stages
@@ -66,6 +93,16 @@ void global(void) {
     code = remplirOffreStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, &tlogOffre, tmaxOffre); // Remplir le tableau des offres de stages
     if (code == -1) {
         printf("\nUne erreur est survenue lors du chargement du fichier (Offre Stage) !\n");
+        exit(1); // Termine tout
+    }
+
+    code = remplirListeEtudiants(tNumEtu, tRefStage, tNoteFinal, &tlogEtu, tmaxEtu);
+    if (code == -1) {
+        printf("\nUne erreur est survenue lors du chargement du fichier (Liste) !\n");
+        exit(1); // Termine tout
+    }
+    else if (code == -2) {
+        printf("\nLe fichier étudiant est vide !\n");
         exit(1); // Termine tout
     }
 }
