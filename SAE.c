@@ -239,6 +239,36 @@ int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     return -1; // Stage non trouver
 }
 
+int rechercherStage(int tRef[], int tDpt[], int *tlog) {
+    int choix, valeurRecherchee;
+    printf("\nRecherche de stage par :\n");
+    printf("\t1. Numéro de référence\n");
+    printf("\t2. Département\n");
+    printf("Votre choix: ");
+    scanf("%d", &choix);
+
+    if (choix == 1) {
+        printf("Numéro de référence: ");
+        scanf("%d", &valeurRecherchee);
+        for (int i = 0; i < *tlog; i++) {
+            if (tRef[i] == valeurRecherchee) {
+                printf("Stage trouvé : REF: %d, DPT: %d\n", tRef[i], tDpt[i]);
+                return 1; // Fonction réussi
+            }
+        }
+    } else if (choix == 2) {
+        printf("Département: ");
+        scanf("%d", &valeurRecherchee);
+        for (int i = 0; i < *tlog; i++) {
+            if (tDpt[i] == valeurRecherchee) {
+                printf("Stage trouvé : REF: %d, DPT: %d\n", tRef[i], tDpt[i]);
+            }
+        }
+        return 1; // Fonction réussi
+    }
+    return -1; // Aucun stage trouvé
+}
+
 /**
  * \brief Ajoute une nouvelle offre de stage dans les tableaux.
  * 
@@ -512,7 +542,8 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 break;
 
             case 8: // Rechercher un stage par numéro ou département
-                code = 0;
+                code = rechercherStage(tRef, tDpt, tlogOffre);
+                if (code == -1) printf("\nStage non trouvé !\n");
                 break;
 
             case 9: // Afficher les informations d'un stage donné
