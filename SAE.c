@@ -71,6 +71,20 @@ int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     return 1; // Fonction réussi
 }
 
+/**
+ * \brief Remplit les tableaux avec les informations des étudiants à partir d'un fichier.
+ * 
+ * Cette fonction lit les informations des étudiants à partir du fichier "etudiants.txt" et les stocke dans 
+ * les tableaux fournis. Chaque étudiant est associé à un numéro et à la référence du stage auquel
+ * il est affecté, ainsi que sa note finale.
+ * 
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlog Pointeur sur le nombre total d'étudiants chargés.
+ * \param tmax Nombre maximal d'étudiants dans le tableau.
+ * \return 0 si tout s'est bien passé, -1 ou -2 en cas d'erreur de lecture.
+ */
 int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlog, int tmax) {
     int i=0, num, ref;
     float note;
