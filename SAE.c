@@ -180,6 +180,19 @@ int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre,
     return 1; // Fonction réussi
 }
 
+/**
+ * \brief Affiche uniquement les stages qui n'ont pas encore été pourvus.
+ * 
+ * Cette fonction parcourt le tableau des stages et affiche ceux qui n'ont pas 
+ * encore d'étudiants affectés, en montrant les détails pour chaque stage.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tlog Pointeur sur le nombre total d'offres.
+ * \return 1 si tout s'est bien passé.
+ */
 int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlog) {
     printf("\nStages non pourvus :\n");
     printf("REF\tDPT\tNB CANDID\n");
