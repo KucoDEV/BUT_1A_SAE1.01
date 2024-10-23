@@ -1,5 +1,21 @@
 #include "SAE.h"
 
+/**
+ * \brief Remplit les tableaux avec les informations des offres de stages à partir d'un fichier.
+ * 
+ * Cette fonction lit les informations des offres de stages à partir du fichier "offrestage.txt" et les stocke 
+ * dans les tableaux fournis. Chaque offre contient une référence, un département, une indication
+ * si l'offre est pourvue, le nombre de candidatures et les étudiants candidats.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux contenant les IDs des étudiants affectés aux stages.
+ * \param tlog Pointeur sur le nombre total d'offres chargées.
+ * \param tmax Nombre maximal d'offres dans le tableau.
+ * \return 0 si tout s'est bien passé, -1 en cas d'erreur de lecture.
+ */
 int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
     FILE *flot;
     int ref, dept, pourvu, candid, etu1, etu2, etu3;
@@ -81,6 +97,7 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
     fclose(flot);
     return 1; // Fonction réussi
 }
+
 
 /**
  * \brief Affiche le menu principal du programme pour la sélection de l'utilisateur.
