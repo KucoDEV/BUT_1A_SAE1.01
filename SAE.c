@@ -162,7 +162,7 @@ int modificationFichier(int tRef[], int tDpt[], int tPourvu[], int tCandid[], in
     fclose(flot);
     
     flot = fopen("DATA/etudiants.txt", "w");
-    if (flot == NULL) return -1;
+    if (flot == NULL) return -1; // Problème ouverture fichier
 
     if (*tlogEtu > 0) {
         for (int i = 0; i < *tlogEtu; i++) {
@@ -593,7 +593,7 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     choix = menuResponsable();
     while (choix != 10) {
         switch (choix) {
-            // Action :
+        // Action :
             case 1: // Ajouter une offre de stage
                 code = ajoutStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tmaxOffre);
                 if (code == 1) printf("\nLe stage a été ajouté avec succès !\n");
@@ -614,6 +614,7 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 if (code == -2) printf("\nStage non trouvé.\n");
                 break;
 
+        // Affichage :
             case 4: // Afficher tous les stages
                 code = afficherTableau(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tmaxOffre);
                 break;
@@ -646,7 +647,9 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
         }
         choix = menuResponsable();
     }
-    return 1;
+    code = modificationFichier(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tNumEtu, tRefStage, tNoteFinal, tlogEtu);
+    if (code == 1) return 1; // Fonction réussi
+    else return -1; // Problème ouverture fichier
 }
 
 
