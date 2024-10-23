@@ -264,7 +264,17 @@ int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     return -1; // Stage non trouver
 }
 
-
+/**
+ * \brief Recherche et affiche un stage à partir de sa référence.
+ * 
+ * Cette fonction permet de rechercher un stage spécifique à partir de sa référence, 
+ * et d'afficher les informations le concernant si le stage est trouvé.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \return 1 si le stage a été trouvé et affiché, -1 si le stage n'existe pas.
+ */
 int rechercherStage(int tRef[], int tDpt[], int *tlog) {
     int choix, valeurRecherchee;
     printf("\nRecherche de stage par :\n");
