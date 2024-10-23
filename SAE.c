@@ -587,10 +587,33 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 }
 
 
+int menuEtudiant(void) {
+    int choix;
+    printf("\nAction :\n");
+    printf("\t1. Afficher la liste de stage\n");
+    printf("\t2. Candidater à un stage\n");
+    printf("\t3. Voir vos candidatures\n");
+    printf("\t4. Quitter\n");
+    printf("Votre choix: ");
+    scanf("%d", &choix);
+    return choix;
+}
+
 int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
 
 }
 
+
+int menuJury(void) {
+    int choix;
+    printf("\nAction :\n");
+    printf("\t1. Ajouter des notes\n");
+    printf("\t2. Afficher les notes\n");
+    printf("\t3. Quitter\n");
+    printf("Votre choix: ");
+    scanf("%d", &choix);
+    return choix;
+}
 
 int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
 
