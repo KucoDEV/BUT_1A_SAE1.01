@@ -283,6 +283,85 @@ int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[]
     }
 }
 
+int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
+    int ref, place, x;
+
+    printf("\nStages disponibles :\n");
+    for (int i = 0; i < *tlog; i++) {
+        if (tPourvu[i] == 0 && tCandid[i] >= 1) {
+            printf("Référence: %d, Département: %d, Nombre de candidature: %d\n", tRef[i], tDpt[i], tCandid[i]);
+        }
+    }
+
+    printf("\nNuméro de référence du stage: ");
+    scanf("%d", &ref);
+
+    int stageTrouve = -1;
+    for (int i = 0; i < *tlog; i++) {
+        if (tRef[i] == ref) {
+            stageTrouve = i;
+            break;
+        }
+    }
+
+    if (stageTrouve == -1) return -2; // Stage non trouver
+
+    printf("\nÉtudiants candidats pour ce stage :\n");
+    for (int i = 0; i < *tlog; i++) {
+        if (tRef[i] == ref) {
+            for (x = 0; x < *tlogEtu; x++) {
+                if (tEtu1[i] == tNumEtu[x] || tEtu2[i] == tNumEtu[x] || tEtu3[i] == tNumEtu[x]) {
+                    printf("ID Étudiant: %d, Note: %d\n", tNumEtu[x], tNoteFinal[x]);
+                    place = x;
+                }
+            }
+        }
+    }
+
+    int etu;
+    printf("ID de l'étudiant à affecter (ou 0 pour revenir en arrière): ");
+    scanf("%d", &etu);
+
+    if (etu == 0) return -3;
+
+    // Rechercher si l'étudiant a postulé ailleurs et le retirer
+    for (int i = 0; i < *tlog; i++) {
+        if (tRefStage[i] != ref) {
+            if (tEtu1[i] == etu) {
+                tEtu1[i] = tEtu2[i];
+                tEtu2[i] = tEtu3[i];
+                tEtu3[i] = 0;
+                tCandid[i]--;
+            }
+            else if (tEtu2[i] == etu) {
+                tEtu2[i] = tEtu3[i];
+                tEtu3[i] = 0;
+                tCandid[i]--;
+            }
+            else if (tEtu3[i] == etu) {
+                tEtu3[i] = 0;
+                tCandid[i]--;
+            }
+        }
+    }
+
+    // Affecter l'étudiant au stage
+    for (int i = 0; i < *tlog; i++) {
+        if (tRef[i] == ref) {
+            if (tEtu1[i] == etu || tEtu2[i] == etu || tEtu3[i] == etu) {
+                tPourvu[i] = 1;
+                tCandid[i] = 0;
+                tEtu1[i] = 0;
+                tEtu2[i] = 0;
+                tEtu3[i] = 0;
+                tRefStage[place] = ref;
+                return 1; // Fonction réussi
+            }
+        }
+    }
+    return -1; // L'étudiant n'est pas candidat pour ce stage
+}
+
 /**
  * \brief Affiche le menu du responsable.
  *
