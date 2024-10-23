@@ -138,6 +138,21 @@ int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
     return 1; // Fonction réussi
 }
 
+/**
+ * \brief Affiche uniquement les stages qui ont été pourvus.
+ * 
+ * Cette fonction parcourt le tableau des stages et affiche uniquement ceux 
+ * qui ont été pourvus, en montrant les détails sur le stage et les étudiants affectés.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tlogOffre Pointeur sur le nombre total de stages.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants.
+ * \return 1 si tout s'est bien passé.
+ */
 int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre, int tNumEtu[], int tRefStage[], int *tlogEtu) {
     int stagePourvu = 0;
 
