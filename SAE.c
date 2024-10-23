@@ -449,11 +449,16 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 break;
 
             case 2: // Supprimer une offre de stage
-                code = 0;
+                code = supprimerStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre);
+                if (code == 1) printf("\nLe stage a été supprimé avec succès !\n");
+                if (code == -1) printf("\nAucun stage trouvé avec ce numéro de référence !\n");
                 break;
 
             case 3: // Affecter un stage à un étudiant
-                code = 0;
+                code = affecterEtudiant(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tNumEtu, tRefStage, tNoteFinal, tlogEtu);
+                if (code == 1) printf("\nL'étudiant a été affecté avec succès !\n");
+                if (code == -1) printf("\nL'étudiant n'est pas candidat pour ce stage.\n");
+                if (code == -2) printf("\nStage non trouvé.\n");
                 break;
 
             case 4: // Afficher tous les stages
