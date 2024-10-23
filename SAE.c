@@ -283,6 +283,31 @@ int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[]
     }
 }
 
+int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog) {
+    int ref, dept;
+    printf("\nNuméro de référence du stage à supprimer: ");
+    scanf("%d", &ref);
+
+    for (int i = 0; i < *tlog; i++) {
+        if (tRef[i] == ref) {
+            // Décaler les différents tableaux
+            for (int j = i; j < *tlog - 1; j++) {
+                tRef[j] = tRef[j + 1];
+                tDpt[j] = tDpt[j + 1];
+                tPourvu[j] = tPourvu[j + 1];
+                tCandid[j] = tCandid[j + 1];
+                tEtu1[j] = tEtu1[j + 1];
+                tEtu2[j] = tEtu2[j + 1];
+                tEtu3[j] = tEtu3[j + 1];
+            }
+            (*tlog)--;
+            printf("Stage supprimé avec succès!\n");
+            return 1; // Fonction réussi
+        }
+    }
+    return -1;
+}
+
 int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
     int ref, place, x;
 
