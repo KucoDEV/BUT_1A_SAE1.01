@@ -132,6 +132,27 @@ int menuResponsable(void) {
     return choix;
 }
 
+/**
+ * \brief Gère les actions principales du responsable de stage.
+ * 
+ * Cette fonction permet au responsable de gérer les stages disponibles. 
+ * Le responsable peut ajouter, supprimer, modifier des stages et voir les candidatures 
+ * des étudiants. Elle gère l'interaction avec les tableaux des stages et étudiants.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tmaxOffre Nombre maximal d'offres dans le tableau.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \param tmaxEtu Nombre maximal d'étudiants dans le tableau.
+ * \return 1 si toutes les actions ont été effectuées avec succès.
+ */
 int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
     int choix, code;
     choix = menuResponsable();
@@ -180,6 +201,7 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
         }
         choix = menuResponsable();
     }
+    return 1;
 }
 
 
