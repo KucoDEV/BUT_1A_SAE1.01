@@ -95,6 +95,27 @@ int menuGlobal(void) {
     return choix;
 }
 
+/**
+ * \brief Gère les actions principales du système de gestion de stages.
+ * 
+ * Cette fonction permet de choisir qui on est.
+ * 
+ * \param choix Le choix de l'utilisateur.
+ * \param code Le code de retour des différentes fonctions
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tmaxOffre Nombre maximal d'offres dans le tableau.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \param tmaxEtu Nombre maximal d'étudiants dans le tableau.
+ */
 void global(void) {
     int choix, code;
     // Tableaux Offres De Stages
