@@ -653,6 +653,17 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 }
 
 
+/**
+ * \brief Vérifie l'identité d'un étudiant à partir de son identifiant.
+ * 
+ * Cette fonction permet de vérifier si un étudiant est bien enregistré dans le système
+ * en comparant l'identifiant saisi avec ceux présents dans le tableau des étudiants.
+ * 
+ * \param id Identifiant de l'étudiant.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tlogEtu Nombre total d'étudiants dans le tableau.
+ * \return 1 si l'étudiant est trouvé, 0 sinon.
+ */
 int verifieLogin(int id, int tNumEtu[], int tlogEtu) {
     for (int i = 0; i < tlogEtu; i++) {
         if (tNumEtu[i] == id) {
@@ -662,6 +673,14 @@ int verifieLogin(int id, int tNumEtu[], int tlogEtu) {
     return -1;
 }
 
+/**
+ * \brief Gère la procédure de connexion pour les étudiants.
+ * 
+ * Cette fonction permet aux étudiants de se connecter en saisissant leur identifiant. 
+ * La connexion est validée en vérifiant l'existence de l'identifiant dans le tableau des étudiants.
+ * 
+ * \return L'identifiant de l'étudiant.
+ */
 int login(void) {
     int id;
     printf("\nQuel est votre identifiant : ");
