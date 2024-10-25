@@ -718,11 +718,9 @@ int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 /**
  * \brief Affiche les notes des étudiants.
  * 
- * Cette fonction affiche les informations des étudiants, incluant leur numéro,
- * la référence de leur stage, et leur note finale.
+ * Cette fonction affiche les informations des étudiants, incluant leur numéro et leur note finale.
  * 
  * \param tNumEtu[] Tableau contenant les IDs des étudiants.
- * \param tRefStage[] Tableau contenant les références des stages associés aux étudiants.
  * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
  * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
  * \return 1 si l'affichage a été effectué correctement, -1 si aucun étudiant n'est à afficher.
@@ -730,9 +728,9 @@ int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 int afficherNotes(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
     if (*tlogEtu <= 0) return -1;
 
-    printf("\nNUM\tREF\tNOTE\n");
+    printf("\nNUM\tNOTE\n");
     for (int i = 0; i < *tlogEtu; i++) {
-        printf("%d\t%d\t%.2f\n", tNumEtu[i], tRefStage[i], tNoteFinal[i]);
+        printf("%d\t%.2f\n", tNumEtu[i], tNoteFinal[i]);
     }
     return 1;
 }
