@@ -696,6 +696,16 @@ int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 }
 
 
+int afficherNotes(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
+    if (*tlogEtu <= 0) return -1;
+
+    printf("\nNUM\tREF\tNOTE\n");
+    for (int i = 0; i < *tlogEtu; i++) {
+        printf("%d\t%d\t%.2f\n", tNumEtu[i], tRefStage[i], tNoteFinal[i]);
+    }
+    return 1;
+}
+
 /**
  * \brief Affiche le menu pour le jury.
  * 
