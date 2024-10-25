@@ -696,6 +696,18 @@ int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 }
 
 
+/**
+ * \brief Affiche les notes des étudiants.
+ * 
+ * Cette fonction affiche les informations des étudiants, incluant leur numéro,
+ * la référence de leur stage, et leur note finale.
+ * 
+ * \param tNumEtu[] Tableau contenant les IDs des étudiants.
+ * \param tRefStage[] Tableau contenant les références des stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \return 1 si l'affichage a été effectué correctement, -1 si aucun étudiant n'est à afficher.
+ */
 int afficherNotes(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
     if (*tlogEtu <= 0) return -1;
 
@@ -724,7 +736,29 @@ int menuJury(void) {
     return choix;
 }
 
-
+/**
+ * \brief Gère les actions du jury sur les offres de stages et les notes des étudiants.
+ * 
+ * Cette fonction permet d'ajouter des notes aux étudiants ou d'afficher les notes 
+ * déjà présentes. Elle gère également la sauvegarde des modifications dans les fichiers 
+ * une fois les actions terminées.
+ * 
+ * \param tRef[] Tableau contenant les références des stages.
+ * \param tDpt[] Tableau contenant les départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[] Tableau contenant les IDs des premiers étudiants affectés aux stages.
+ * \param tEtu2[] Tableau contenant les IDs des seconds étudiants affectés aux stages.
+ * \param tEtu3[] Tableau contenant les IDs des troisièmes étudiants affectés aux stages.
+ * \param tNumEtu[] Tableau contenant les IDs des étudiants.
+ * \param tRefStage[] Tableau contenant les références de stages associées aux étudiants.
+ * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
+ * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tmaxOffre Taille maximale du tableau des offres.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \param tmaxEtu Taille maximale du tableau des étudiants.
+ * \return 1 si toutes les actions ont été effectuées avec succès, -1 en cas d'erreur.
+ */
 int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
     int choix, code;
     choix = menuJury();
