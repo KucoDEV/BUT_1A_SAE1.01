@@ -653,6 +653,15 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 }
 
 
+int verifieLogin(int id, int tNumEtu[], int tlogEtu) {
+    for (int i = 0; i < tlogEtu; i++) {
+        if (tNumEtu[i] == id) {
+            return 1; // Fonction réussi
+        }
+    }
+    return -1;
+}
+
 int login(void) {
     int id;
     printf("\nQuel est votre identifiant : ");
@@ -683,6 +692,7 @@ int menuEtudiant(void) {
 int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
     int choix, code, id;
     id = login();
+    code = verifieLogin(id, tNumEtu, *tlogEtu);
 }
 
 
