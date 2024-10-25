@@ -653,6 +653,13 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 }
 
 
+int login(void) {
+    int id;
+    printf("\nQuel est votre identifiant : ");
+    scanf("%d", &id);
+    return id;
+}
+
 /**
  * \brief Affiche le menu pour les étudiants.
  * 
@@ -674,7 +681,8 @@ int menuEtudiant(void) {
 }
 
 int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
-
+    int choix, code, id;
+    id = login();
 }
 
 
@@ -699,6 +707,7 @@ int menuJury(void) {
 int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
 
 }
+
 
 /**
  * \brief Affiche le menu principal du programme pour la sélection de l'utilisateur.
