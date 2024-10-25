@@ -724,8 +724,29 @@ int menuJury(void) {
     return choix;
 }
 
-int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
 
+int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
+    int choix, code;
+    choix = menuJury();
+    while (choix!=3) {
+        switch (choix) {
+        case 1: // Ajouter une offre de stage
+            break;
+        
+        case 2: // Afficher notes
+            code = afficherNotes(tNumEtu, tRefStage, tNoteFinal, tlogEtu);
+            if (code == -1) printf("Aucun étudiant à afficher.\n");
+            break;
+
+        default: // Choix invalide
+            printf("\nChoix non valide !\n");
+            break;
+        }
+        choix = menuJury();
+    }
+    code = modificationFichier(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tNumEtu, tRefStage, tNoteFinal, tlogEtu);
+    if (code == 1) return 1; // Fonction réussi
+    else return -1; 
 }
 
 
