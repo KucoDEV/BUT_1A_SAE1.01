@@ -14,7 +14,7 @@
 /**
  * \brief Remplit les tableaux avec les informations des offres de stages à partir d'un fichier.
  * 
- * Cette fonction lit les informations des offres de stages à partir du fichier "offrestage.txt" et les stocke 
+ * Cette fonction lit les informations des offres de stages à partir du fichier "offrestage.don" et les stocke 
  * dans les tableaux fournis. Chaque offre contient une référence, un département, une indication
  * si l'offre est pourvue, le nombre de candidatures et les étudiants candidats.
  * 
@@ -32,7 +32,7 @@ int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     int ref, dept, pourvu, candid, etu1, etu2, etu3;
     int i=0;
 
-    flot = fopen("DATA/offrestage.txt", "r"); // Ouvrir le fichier
+    flot = fopen("DATA/offrestage.don", "r"); // Ouvrir le fichier
     
     if (flot  == NULL) return -1; // Erreur lors du chargement
     
@@ -85,7 +85,7 @@ int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 /**
  * \brief Remplit les tableaux avec les informations des étudiants à partir d'un fichier.
  * 
- * Cette fonction lit les informations des étudiants à partir du fichier "etudiants.txt" et les stocke dans 
+ * Cette fonction lit les informations des étudiants à partir du fichier "etudiants.don" et les stocke dans 
  * les tableaux fournis. Chaque étudiant est associé à un numéro et à la référence du stage auquel
  * il est affecté, ainsi que sa note finale.
  * 
@@ -100,7 +100,7 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
     int i=0, num, ref;
     float note;
     FILE *flot;
-    flot = fopen("DATA/etudiants.txt", "r");
+    flot = fopen("DATA/etudiants.don", "r");
 
     if (flot == NULL) return -1; // Erreur lors du chargement
 
@@ -147,7 +147,7 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
  */
 int modificationFichier(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
     FILE *flot;
-    flot = fopen("DATA/offrestage.txt", "w");
+    flot = fopen("DATA/offrestage.don", "w");
     if (flot == NULL) return -1;
 
     for (int i = 0; i < *tlog; i++) {
@@ -161,7 +161,7 @@ int modificationFichier(int tRef[], int tDpt[], int tPourvu[], int tCandid[], in
 
     fclose(flot);
     
-    flot = fopen("DATA/etudiants.txt", "w");
+    flot = fopen("DATA/etudiants.don", "w");
     if (flot == NULL) return -1; // Problème ouverture fichier
 
     if (*tlogEtu > 0) {
