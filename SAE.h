@@ -6,7 +6,7 @@
  * les étudiants, et les responsables dans le programme de gestion des stages.
  *
  * \authors MIOTTO Quentin, PICHOT-MOÏSE Mathéo
- * \date 23 Octobre 2024
+ * \date 15 Novembre 2024
  *
  * Ce fichier permet de centraliser les déclarations des fonctions pour les utiliser dans les différents fichiers source du programme.
  */
