@@ -676,6 +676,113 @@ int listeStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlogOf
 }
 
 /**
+ * \brief Permet à un étudiant de candidater à un stage.
+ *
+ * Cette fonction gère la soumission d'une candidature par un étudiant pour un stage donné.
+ */
+int candidaterStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlogOffre, int *tlogEtu, int tNumEtu[], int etudiantID) {
+    int refStage, foundStage = 0;
+
+    // Vérifier le nombre de candidatures de l'étudiant
+    int nbCandidatures = 0;
+    for (int i = 0; i < *tlogEtu; i++) {
+        if (tNumEtu[i] == etudiantID) {
+            nbCandidatures++;
+        }
+    }
+
+    if (nbCandidatures >= 3) return -1;
+
+    // Demander à l'étudiant de choisir un stage
+    printf("\nEntrez la référence du stage pour candidater (0: Annuler): ");
+    scanf("%d", &refStage);
+
+    if (refStage == 0) return -2;
+
+    // Vérifier si le stage existe et si l'étudiant peut candidater
+    for (int i = 0; i < *tlogOffre; i++) {
+        if (tRef[i] == refStage) {
+            if (tPourvu[i] == 1) return -3;
+            // Vérifier si l'étudiant est déjà candidat
+            if (tEtu1[i] == etudiantID || tEtu2[i] == etudiantID || tEtu3[i] == etudiantID) return -4;
+
+            if (tCandid[i] < 3) {
+                // Ajouter l'étudiant à la liste des candidats
+                if (tEtu1[i] == 0) {
+                    tEtu1[i] = etudiantID;
+                } else if (tEtu2[i] == 0) {
+                    tEtu2[i] = etudiantID;
+                } else if (tEtu3[i] == 0) {
+                    tEtu3[i] = etudiantID;
+                }
+                tCandid[i]++; // Incrémenter le nombre de candidatures pour ce stage
+
+                return 1; // Fonction réussi
+            } 
+            else return -5;
+        }
+    }
+    return -6;
+}
+
+/**
+ * \brief Permet de voir les candidatures d'un étudiant.
+ * 
+ * Cette fonction affiche les stages auxquels un étudiant a candidaté et montre si l'étudiant
+ * a déjà été affecté à un stage. Elle permet aussi de consulter les informations relatives 
+ * aux stages disponibles.
+ * 
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants.
+ * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
+ * \param etudiantID Identifiant de l'étudiant concerné.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \return 0 si la consultation s'est bien déroulée, -1 en cas d'erreur.
+ */
+int voirCandidature(int tNumEtu[], int tRefStage[], int tRef[], int tDpt[], int tPourvu[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlogEtu, int *tlogOffre, int etudiantID, int tCandid[]) {
+    int indexEtu = -1;
+    for (int i = 0; i < *tlogEtu; i++) {
+        if (tNumEtu[i] == etudiantID) {
+            indexEtu = i;
+            break;
+        }
+    }
+    
+    if (indexEtu == -1) return -1; // Étudiant non trouvé
+
+    int refStage = tRefStage[indexEtu];
+
+    if (refStage == -1) {
+        // Afficher toutes les candidatures
+        printf("\nMes candidatures :\n");
+        printf("REF\tDPT\tNB CANDID\n");
+        for (int i = 0; i < *tlogOffre; i++) {
+            if (tEtu1[i] == etudiantID || tEtu2[i] == etudiantID || tEtu3[i] == etudiantID) {
+                printf("%d\t%d\t%d\n", tRef[i], tDpt[i], tCandid[i]);
+            }
+        }
+        return 1; // Fonction réussi
+    } else {
+        // Afficher le stage affecté
+        for (int j = 0; j < *tlogOffre; j++) {
+            if (tRef[j] == refStage) {
+                printf("\nVous avez été affecter à un stage :\n");
+                printf("Référence: %d, Département: %d\n", tRef[j], tDpt[j]);
+                return 1; // Fonction réussi
+            }
+        }
+        return -2; // Aucun stage trouvé
+    }
+
+    return 1; // Fonction réussie
+}
+
+/**
  * \brief Vérifie l'identité d'un étudiant à partir de son identifiant.
  * 
  * Cette fonction permet de vérifier si un étudiant est bien enregistré dans le système
