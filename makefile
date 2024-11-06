@@ -1,5 +1,5 @@
 SAE1.01 : SAE.o TestSAE.o
-	gcc SAE.o TestSAE.o -o SAE1.01
+	gcc SAE.o TestSAE.o -o sae
 
 SAE.o : SAE.c SAE.h
 	gcc -c SAE.c 

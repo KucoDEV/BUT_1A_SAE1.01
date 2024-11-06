@@ -104,7 +104,7 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
 
     if (flot == NULL) return -1; // Erreur lors du chargement
 
-    fscanf(flot,"%d%d%f", &num, &ref, &note);
+    fscanf(flot, "%d %d %f", &num, &ref, &note);
     while(!feof(flot)) {
         if (i < tmax) {
             tNumEtu[i] = num;
@@ -523,18 +523,23 @@ int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int t
         }
     }
 
-    // Affecter l'étudiant au stage
+    // Modifier les tables étudiantes
+    for (int j = 0; j < *tlogEtu; j++) {
+        if (tNumEtu[j] == etu) {
+            tRefStage[j] = ref; 
+            break;
+        }
+    }
+
+    // Modifier les tables offres de stage
     for (int i = 0; i < *tlog; i++) {
         if (tRef[i] == ref) {
-            if (tEtu1[i] == etu || tEtu2[i] == etu || tEtu3[i] == etu) {
-                tPourvu[i] = 1;
-                tCandid[i] = 0;
-                tEtu1[i] = 0;
-                tEtu2[i] = 0;
-                tEtu3[i] = 0;
-                tRefStage[place] = ref;
-                return 1; // Fonction réussi
-            }
+            tPourvu[i] = 1;
+            tCandid[i] = 0;
+            tEtu1[i] = 0;
+            tEtu2[i] = 0;
+            tEtu3[i] = 0;
+            return 1; // Fonction réussi
         }
     }
     return -1; // L'étudiant n'est pas candidat pour ce stage
@@ -1033,11 +1038,10 @@ void global(void) {
     code = remplirListeEtudiants(tNumEtu, tRefStage, tNoteFinal, &tlogEtu, tmaxEtu);
     if (code == -1) {
         printf("\nUne erreur est survenue lors du chargement du fichier (Liste) !\n");
-        exit(1); // Termine tout
-    }
-    else if (code == -2) {
+        exit(1);
+    } else if (code == -2) {
         printf("\nLe fichier étudiant est vide !\n");
-        exit(1); // Termine tout
+        exit(1);
     }
 
     choix = menuGlobal();
