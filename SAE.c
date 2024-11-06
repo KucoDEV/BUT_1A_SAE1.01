@@ -654,6 +654,28 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 
 
 /**
+ * \brief Affiche la liste des stages disponibles.
+ * 
+ * Cette fonction permet d'afficher la liste complète des stages en indiquant 
+ * pour chaque stage sa référence, son département, et si le stage est pourvu ou non.
+ * 
+ * \return 1 si l'affichage s'est bien déroulé, -1 en cas d'erreur.
+ */
+int listeStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlogOffre) {
+    printf("\nListe des stages disponibles :\n");
+    int stageTrouve = 0;
+
+    for (int i = 0; i < *tlogOffre; i++) {
+        if (tPourvu[i] == 0 && tCandid[i] < 3) {
+            printf("Référence: %d, Département: %d, Nombre de candidatures: %d\n", tRef[i], tDpt[i], tCandid[i]);
+            stageTrouve = 1;
+        }
+    }
+    if (stageTrouve == 0) return -1;
+    return 1; // Fonction réussi 
+}
+
+/**
  * \brief Vérifie l'identité d'un étudiant à partir de son identifiant.
  * 
  * Cette fonction permet de vérifier si un étudiant est bien enregistré dans le système
