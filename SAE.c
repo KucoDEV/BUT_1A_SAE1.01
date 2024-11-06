@@ -716,6 +716,51 @@ int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 
 
 /**
+ * \brief Ajoute les notes pour un étudiant dans le tableau.
+ * 
+ * Cette fonction permet de rechercher un étudiant dans le tableau à partir de son ID
+ * et d'ajouter ses notes pour l'entreprise, le rapport, et la soutenance.
+ * 
+ * \param tNumEtu[] Tableau contenant les IDs des étudiants.
+ * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
+ * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \return La moyenne calculée si tout s'est bien passé, sinon les codes d'erreurs
+ */
+int ajouterNotes(int tNumEtu[], float tNoteFinal[], int *tlogEtu) { 
+    int idEtu;
+    float noteEntreprise, noteRapport, noteSoutenance;
+    float moyenne; 
+    int place = -1; 
+
+    printf("\nEntrez l'ID de l'étudiant : "); 
+    scanf("%d", &idEtu); 
+
+    for (int i = 0; i < *tlogEtu; i++) { 
+        if (tNumEtu[i] == idEtu) { 
+            place = i; 
+            break; 
+        } 
+    } 
+    if (place == -1) return -1; // Etudiant non trouvé 
+
+    // Demande les notes à l'utilisateur 
+    printf("Entrez la note d'entreprise : "); 
+    scanf("%f", &noteEntreprise);
+    if (noteEntreprise <  0 || noteEntreprise > 20) return -2;
+    printf("Entrez la note du rapport : "); 
+    scanf("%f", &noteRapport);
+    if (noteRapport <  0 || noteRapport > 20) return -3;
+    printf("Entrez la note de soutenance : "); 
+    scanf("%f", &noteSoutenance);
+    if (noteSoutenance <  0 || noteSoutenance > 20) return -4;
+
+    moyenne = (noteEntreprise + noteRapport + noteSoutenance) / 3;
+    tNoteFinal[place] = moyenne; 
+
+    return moyenne; 
+}
+
+/**
  * \brief Affiche les notes des étudiants.
  * 
  * Cette fonction affiche les informations des étudiants, incluant leur numéro et leur note finale.
