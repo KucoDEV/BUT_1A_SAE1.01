@@ -6,7 +6,7 @@
  * des candidatures et des affectations des étudiants dans un système de suivi des stages.
  *
  * \authors MIOTTO Quentin, PICHOT-MOÏSE Mathéo
- * \date 23 Octobre 2024
+ * \date 15 Novembre 2024
  */
 #include "SAE.h"
 
