@@ -27,7 +27,7 @@ int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
 int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre, int tNumEtu[], int tRefStage[], int *tlogEtu);
 int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlog);
 int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu);
-int rechercherStage(int tRef[], int tDpt[], int *tlog);
+int rechercherStage(int tRef[], int tDpt[], int tCandid[], int *tlog);
 int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog);
 int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax);
 int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog);

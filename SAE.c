@@ -32,14 +32,14 @@ int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
     int ref, dept, pourvu, candid, etu1, etu2, etu3;
     int i=0;
 
-    flot = fopen("DATA/offrestage.don", "r"); // Ouvrir le fichier
+    flot = fopen("DATA/offrestage.don", "r");
     
     if (flot  == NULL) return -1; // Erreur lors du chargement
     
-    while(i < tmax && fscanf(flot, "%d", &ref) == 1) { // Si i<tmax et que le fichier trouve encore une ligne
+    while(i < tmax && fscanf(flot, "%d", &ref) == 1) {
         if (ref >= 1000) {
             tRef[i] = ref;
-            if (fscanf(flot, "%d%d%d", &dept, &pourvu, &candid) != 3) { // Si les 3 ne sont pas présent c'est pas une ligne correcte
+            if (fscanf(flot, "%d%d%d", &dept, &pourvu, &candid) != 3) {
                 break;
             }
 
@@ -219,7 +219,7 @@ int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
 int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre, int tNumEtu[], int tRefStage[], int *tlogEtu) {
     int stagePourvu = 0;
 
-    printf("REF\tDPT\tETU\n");
+    printf("\nREF\tDPT\tETU\n");
 
     for (int i = 0; i < *tlogOffre; i++) {
         if (tPourvu[i] == 1) {
@@ -328,7 +328,7 @@ int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
  * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
  * \return 1 si le stage a été trouvé et affiché, -1 si le stage n'existe pas.
  */
-int rechercherStage(int tRef[], int tDpt[], int *tlog) {
+int rechercherStage(int tRef[], int tDpt[], int tCandid[], int *tlog) {
     int choix, valeurRecherchee;
     printf("\nRecherche de stage par :\n");
     printf("\t1. Numéro de référence\n");
@@ -341,7 +341,7 @@ int rechercherStage(int tRef[], int tDpt[], int *tlog) {
         scanf("%d", &valeurRecherchee);
         for (int i = 0; i < *tlog; i++) {
             if (tRef[i] == valeurRecherchee) {
-                printf("Stage trouvé : REF: %d, DPT: %d\n", tRef[i], tDpt[i]);
+                printf("Stage trouvé : REF: %d, DPT: %d, NB CANDID: %d\n", tRef[i], tDpt[i], tCandid[i]);
                 return 1; // Fonction réussi
             }
         }
@@ -350,7 +350,7 @@ int rechercherStage(int tRef[], int tDpt[], int *tlog) {
         scanf("%d", &valeurRecherchee);
         for (int i = 0; i < *tlog; i++) {
             if (tDpt[i] == valeurRecherchee) {
-                printf("Stage trouvé : REF: %d, DPT: %d\n", tRef[i], tDpt[i]);
+                printf("Stage trouvé : REF: %d, DPT: %d, NB CANDID: %d\n", tRef[i], tDpt[i], tCandid[i]);
             }
         }
         return 1; // Fonction réussi
@@ -424,7 +424,6 @@ int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 
     for (int i = 0; i < *tlog; i++) {
         if (tRef[i] == ref) {
-            // Décaler les différents tableaux
             for (int j = i; j < *tlog - 1; j++) {
                 tRef[j] = tRef[j + 1];
                 tDpt[j] = tDpt[j + 1];
@@ -502,7 +501,6 @@ int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int t
 
     if (etu == 0) return -3;
 
-    // Rechercher si l'étudiant a postulé ailleurs et le retirer
     for (int i = 0; i < *tlog; i++) {
         if (tRefStage[i] != ref) {
             if (tEtu1[i] == etu) {
@@ -523,7 +521,6 @@ int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int t
         }
     }
 
-    // Modifier les tables étudiantes
     for (int j = 0; j < *tlogEtu; j++) {
         if (tNumEtu[j] == etu) {
             tRefStage[j] = ref; 
@@ -531,7 +528,6 @@ int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int t
         }
     }
 
-    // Modifier les tables offres de stage
     for (int i = 0; i < *tlog; i++) {
         if (tRef[i] == ref) {
             tPourvu[i] = 1;
@@ -637,7 +633,7 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
                 break;
 
             case 8: // Rechercher un stage par numéro ou département
-                code = rechercherStage(tRef, tDpt, tlogOffre);
+                code = rechercherStage(tRef, tDpt, tCandid, tlogOffre);
                 if (code == -1) printf("\nStage non trouvé !\n");
                 break;
 
@@ -687,9 +683,8 @@ int listeStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlogOf
  */
 int candidaterStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlogOffre, int *tlogEtu, int tNumEtu[], int etudiantID) {
     int refStage, foundStage = 0;
-
-    // Vérifier le nombre de candidatures de l'étudiant
     int nbCandidatures = 0;
+
     for (int i = 0; i < *tlogEtu; i++) {
         if (tNumEtu[i] == etudiantID) {
             nbCandidatures++;
@@ -698,21 +693,17 @@ int candidaterStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
 
     if (nbCandidatures >= 3) return -1;
 
-    // Demander à l'étudiant de choisir un stage
     printf("\nEntrez la référence du stage pour candidater (0: Annuler): ");
     scanf("%d", &refStage);
 
     if (refStage == 0) return -2;
 
-    // Vérifier si le stage existe et si l'étudiant peut candidater
     for (int i = 0; i < *tlogOffre; i++) {
         if (tRef[i] == refStage) {
             if (tPourvu[i] == 1) return -3;
-            // Vérifier si l'étudiant est déjà candidat
             if (tEtu1[i] == etudiantID || tEtu2[i] == etudiantID || tEtu3[i] == etudiantID) return -4;
 
             if (tCandid[i] < 3) {
-                // Ajouter l'étudiant à la liste des candidats
                 if (tEtu1[i] == 0) {
                     tEtu1[i] = etudiantID;
                 } else if (tEtu2[i] == 0) {
@@ -720,7 +711,7 @@ int candidaterStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
                 } else if (tEtu3[i] == 0) {
                     tEtu3[i] = etudiantID;
                 }
-                tCandid[i]++; // Incrémenter le nombre de candidatures pour ce stage
+                tCandid[i]++;
 
                 return 1; // Fonction réussi
             } 
@@ -763,7 +754,6 @@ int voirCandidature(int tNumEtu[], int tRefStage[], int tRef[], int tDpt[], int 
     int refStage = tRefStage[indexEtu];
 
     if (refStage == -1) {
-        // Afficher toutes les candidatures
         printf("\nMes candidatures :\n");
         printf("REF\tDPT\tNB CANDID\n");
         for (int i = 0; i < *tlogOffre; i++) {
@@ -773,7 +763,6 @@ int voirCandidature(int tNumEtu[], int tRefStage[], int tRef[], int tDpt[], int 
         }
         return 1; // Fonction réussi
     } else {
-        // Afficher le stage affecté
         for (int j = 0; j < *tlogOffre; j++) {
             if (tRef[j] == refStage) {
                 printf("\nVous avez été affecter à un stage :\n");
@@ -844,8 +833,47 @@ int menuEtudiant(void) {
 
 int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
     int choix, code, id;
+    
     id = login();
     code = verifieLogin(id, tNumEtu, *tlogEtu);
+    if (code == 1) {
+        choix = menuEtudiant();
+        while(choix!=4) {
+            switch (choix)
+            {
+            case 1: // Afficher la liste de stage
+                code = listeStage(tRef, tDpt, tPourvu, tCandid, tlogOffre);
+                if (code == -1) printf("\nAucun stage n'a été trouver !\n");
+                break;
+            
+            case 2: // Candidater à un stage
+                code = candidaterStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tlogEtu, tNumEtu, id);
+                if (code == 1) printf("\nCandidature réussie pour le stage !\n");
+                if (code == -1) printf("\nVous avez atteint le nombre maximum de candidatures (3).\n");
+                if (code == -2) printf("\nAucun candidature n'a été faites !\n");
+                if (code == -3) printf("\nLe stage a déjà été pourvu !\n");
+                if (code == -4) printf("\nVous êtes déjà candidat pour ce stage.\n");
+                if (code == -5) printf("\nLe stage que vous avez demandé possède déjà 3 candidats.\n");
+                if (code == -6) printf("\nStage non trouvé.\n");
+                break;
+            
+            case 3: // Voir vos candidatures
+                code = voirCandidature(tNumEtu, tRefStage, tRef, tDpt, tPourvu, tEtu1, tEtu2, tEtu3, tlogEtu, tlogOffre, id, tCandid);
+                if (code == -1) printf("Étudiant non trouvé.\n");
+                if (code == -2) printf("Aucun stage affecté trouvé.\n");
+                break;
+            
+            default: // Choix invalide
+                printf("\nChoix non valide !\n");
+                break;
+            }
+            choix = menuEtudiant();
+        }
+        code = modificationFichier(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlogOffre, tNumEtu, tRefStage, tNoteFinal, tlogEtu);
+        if (code == 1) return 1; // Fonction réussi
+        if (code == -1) return -1;
+    }
+    else return -2;
 }
 
 
@@ -877,7 +905,6 @@ int ajouterNotes(int tNumEtu[], float tNoteFinal[], int *tlogEtu) {
     } 
     if (place == -1) return -1; // Etudiant non trouvé 
 
-    // Demande les notes à l'utilisateur 
     printf("Entrez la note d'entreprise : "); 
     scanf("%f", &noteEntreprise);
     if (noteEntreprise <  0 || noteEntreprise > 20) return -2;
@@ -956,11 +983,16 @@ int menuJury(void) {
  * \return 1 si toutes les actions ont été effectuées avec succès, -1 en cas d'erreur.
  */
 int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
-    int choix, code;
+   int choix, code;
     choix = menuJury();
     while (choix!=3) {
         switch (choix) {
         case 1: // Ajouter une offre de stage
+            code = ajouterNotes(tNumEtu, tNoteFinal, tlogEtu);
+            if (code == -1) printf("\nL'étudiant n'a pas été trouver !\n");
+            if (code == -2) printf("\nLa note d'entreprise est incorrecte !\n");
+            if (code == -3) printf("\nLa note de rapport est incorrecte !\n");
+            if (code == -4) printf("\nLa note de soutenance est incorrecte !\n");
             break;
         
         case 2: // Afficher notes
@@ -1029,7 +1061,7 @@ void global(void) {
     int tNumEtu[200]={0}, tRefStage[200]={0}, tmaxEtu=200, tlogEtu=0;
     float tNoteFinal[200];
 
-    code = remplirOffreStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, &tlogOffre, tmaxOffre); // Remplir le tableau des offres de stages
+    code = remplirOffreStage(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, &tlogOffre, tmaxOffre);
     if (code == -1) {
         printf("\nUne erreur est survenue lors du chargement du fichier (Offre Stage) !\n");
         exit(1); // Termine tout
