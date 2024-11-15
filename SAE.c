@@ -1,10 +1,6 @@
 /**
  * \file SAE.c
- * \brief Gestion des stages et des étudiants.
- *
- * Ce fichier contient les fonctions nécessaires à la gestion des offres de stages,
- * des candidatures et des affectations des étudiants dans un système de suivi des stages.
- *
+ * \brief Application de gestions de stages.
  * \authors MIOTTO Quentin, PICHOT-MOÏSE Mathéo
  * \date 15 Novembre 2024
  */
@@ -12,19 +8,17 @@
 
 
 /**
- * \brief Remplit les tableaux avec les informations des offres de stages à partir d'un fichier.
- * 
- * Cette fonction lit les informations des offres de stages à partir du fichier "offrestage.don" et les stocke 
- * dans les tableaux fournis. Chaque offre contient une référence, un département, une indication
- * si l'offre est pourvue, le nombre de candidatures et les étudiants candidats.
+ * \brief Remplit les tableaux avec les informations des offres de stages à partir du fichier "offrestage.don".
  * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux contenant les IDs des étudiants affectés aux stages.
- * \param tlog Pointeur sur le nombre total d'offres chargées.
- * \param tmax Nombre maximal d'offres dans le tableau.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlog Taille logique du tableau.
+ * \param tmax Taille physique du tableau.
  * \return 0 si tout s'est bien passé, -1 en cas d'erreur de lecture.
  */
 int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
@@ -85,15 +79,11 @@ int remplirOffreStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 /**
  * \brief Remplit les tableaux avec les informations des étudiants à partir d'un fichier.
  * 
- * Cette fonction lit les informations des étudiants à partir du fichier "etudiants.don" et les stocke dans 
- * les tableaux fournis. Chaque étudiant est associé à un numéro et à la référence du stage auquel
- * il est affecté, ainsi que sa note finale.
- * 
  * \param tNumEtu[] Tableau des numéros des étudiants.
- * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
  * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
- * \param tlog Pointeur sur le nombre total d'étudiants chargés.
- * \param tmax Nombre maximal d'étudiants dans le tableau.
+ * \param tlog Taille logique du tableau.
+ * \param tmax Taille physique du tableau.
  * \return 0 si tout s'est bien passé, -1 ou -2 en cas d'erreur de lecture.
  */
 int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlog, int tmax) {
@@ -127,22 +117,18 @@ int remplirListeEtudiants(int tNumEtu[], int tRefStage[], float tNoteFinal[], in
 /**
  * \brief Sauvegarde les modifications apportées aux stages et aux étudiants dans un fichier.
  * 
- * Cette fonction enregistre les modifications effectuées sur les offres de stages 
- * et les notes des étudiants dans un fichier, afin de préserver les données après l'exécution 
- * du programme. Elle met à jour les fichiers en fonction des tableaux passés en paramètres.
- * 
- * \param tRef[] Tableau contenant les références des stages.
- * \param tDpt[] Tableau contenant les départements associés aux stages.
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
  * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[] Tableau contenant les IDs des premiers étudiants affectés aux stages.
- * \param tEtu2[] Tableau contenant les IDs des seconds étudiants affectés aux stages.
- * \param tEtu3[] Tableau contenant les IDs des troisièmes étudiants affectés aux stages.
- * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
- * \param tNumEtu[] Tableau contenant les IDs des étudiants.
- * \param tRefStage[] Tableau contenant les références de stages associées aux étudiants.
- * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlogOffre Taille logique du tableau des offres de stages.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
  * \return 1 si la sauvegarde s'est bien effectuée, -1 en cas d'erreur.
  */
 int modificationFichier(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
@@ -178,17 +164,15 @@ int modificationFichier(int tRef[], int tDpt[], int tPourvu[], int tCandid[], in
 /**
  * \brief Affiche les informations de tous les stages présents dans les tableaux.
  * 
- * Cette fonction affiche les informations des stages à partir des tableaux, incluant 
- * les références, les départements, l'état pourvu ou non, le nombre de candidatures 
- * et les étudiants candidats.
- * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des IDs des étudiants affectés.
- * \param tlog Pointeur sur le nombre total d'offres à afficher.
- * \param tmax Nombre maximal d'offres dans le tableau.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlog Taille logique du tableau.
+ * \param tmax Taille physique du tableau.
  * \return 1 si tout s'est bien passé.
  */
 int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
@@ -204,16 +188,13 @@ int afficherTableau(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
 /**
  * \brief Affiche uniquement les stages qui ont été pourvus.
  * 
- * Cette fonction parcourt le tableau des stages et affiche uniquement ceux 
- * qui ont été pourvus, en montrant les détails sur le stage et les étudiants affectés.
- * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
- * \param tlogOffre Pointeur sur le nombre total de stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tlogOffre Taille logique du tableau des offres de stages.
  * \param tNumEtu[] Tableau des numéros des étudiants.
- * \param tRefStage[] Tableau des références des stages associés aux étudiants.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
  * \return 1 si tout s'est bien passé.
  */
 int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre, int tNumEtu[], int tRefStage[], int *tlogEtu) {
@@ -246,14 +227,11 @@ int afficherStagesPourvus(int tRef[], int tDpt[], int tPourvu[], int *tlogOffre,
 /**
  * \brief Affiche uniquement les stages qui n'ont pas encore été pourvus.
  * 
- * Cette fonction parcourt le tableau des stages et affiche ceux qui n'ont pas 
- * encore d'étudiants affectés, en montrant les détails pour chaque stage.
- * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tlog Pointeur sur le nombre total d'offres.
+ * \param tlog Taille logique du tableau.
  * \return 1 si tout s'est bien passé.
  */
 int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlog) {
@@ -270,12 +248,9 @@ int afficherStagesNonPourvus(int tRef[], int tDpt[], int tPourvu[], int tCandid[
 /**
  * \brief Affiche les étudiants qui n'ont pas encore de stage.
  * 
- * Cette fonction parcourt le tableau des étudiants et affiche ceux qui n'ont pas 
- * encore été affectés à un stage, en montrant leur numéro et d'autres informations pertinentes.
- * 
  * \param tNumEtu[] Tableau des numéros des étudiants.
  * \param tRefStage[] Tableau des références de stages associés aux étudiants.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants.
+ * \param tlogEtu Taille logique du tableau.
  * \return 1 si tout s'est bien passé.
  */
 int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu) {
@@ -291,15 +266,14 @@ int afficherEtudiantsSansStage(int tNumEtu[], int tRefStage[], int *tlogEtu) {
 /**
  * \brief Affiche les détails d'un stage particulier.
  * 
- * Cette fonction affiche les informations complètes d'un stage à partir de sa référence,
- * incluant les étudiants affectés, les départements, et le statut de pourvu ou non.
- * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
- * \param tCandid[] Tableau des candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés.
- * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlog Taille logique du tableau.
  * \return 1 si tout s'est bien passé, -1 si le stage n'a pas été trouvé.
  */
 int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog) {
@@ -318,14 +292,12 @@ int afficherInfoStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 }
 
 /**
- * \brief Recherche et affiche un stage à partir de sa référence.
- * 
- * Cette fonction permet de rechercher un stage spécifique à partir de sa référence, 
- * et d'afficher les informations le concernant si le stage est trouvé.
+ * \brief Recherche et affiche un ou des stage(s) à partir d'une référence ou d'un département.
  * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tlog Taille logique du tableau.
  * \return 1 si le stage a été trouvé et affiché, -1 si le stage n'existe pas.
  */
 int rechercherStage(int tRef[], int tDpt[], int tCandid[], int *tlog) {
@@ -361,17 +333,15 @@ int rechercherStage(int tRef[], int tDpt[], int tCandid[], int *tlog) {
 /**
  * \brief Ajoute une nouvelle offre de stage dans les tableaux.
  * 
- * Cette fonction permet d'ajouter un nouveau stage en saisissant les informations pertinentes
- * telles que la référence du stage, le département associé, le nombre de candidatures, 
- * et les étudiants affectés. Si le stage existe déjà, il ne sera pas ajouté.
- * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des IDs des étudiants affectés.
- * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
- * \param tmax Nombre maximal d'offres dans le tableau.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlog Taille logique du tableau.
+ * \param tmax Taille physique du tableau.
  * \return 1 si le stage a été ajouté avec succès, -1 ou -2 si il y a eu une erreur.
  */
 int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tmax) {
@@ -403,25 +373,20 @@ int ajoutStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[]
 }
 
 /**
- * \brief Supprime une offre de stage du tableau.
- * 
- * Cette fonction permet de supprimer une offre de stage à partir de sa référence. 
- * Les informations sur ce stage et les étudiants affectés sont supprimées, 
- * et les éléments des tableaux sont réorganisés pour combler le vide laissé.
+ * \brief Décalle à gauche tout les tableaux des stages.
  * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des IDs des étudiants affectés.
- * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlog Taille logique du tableau.
+ * \param ref Numéro de référence du stage à décaler.
  * \return 1 si le stage a été supprimé avec succès, -1 si le stage n'a pas été trouvé.
  */
-int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog) {
-    int ref, dept;
-    printf("\nNuméro de référence du stage à supprimer: ");
-    scanf("%d", &ref);
-
+int decalerAgauche(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int ref) {
     for (int i = 0; i < *tlog; i++) {
         if (tRef[i] == ref) {
             for (int j = i; j < *tlog - 1; j++) {
@@ -438,37 +403,71 @@ int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
             return 1; // Fonction réussi
         }
     }
-    return -1;
+    return -1; // Problème
 }
 
 /**
- * \brief Affecte un étudiant à un stage spécifique.
- * 
- * Cette fonction permet d'affecter un étudiant à un stage en vérifiant d'abord s'il est déjà 
- * assigné à un autre stage. Si l'affectation est valide, l'étudiant est ajouté au stage, 
- * et les candidatures du stage sont mises à jour en conséquence.
+ * \brief Supprime une offre de stage du tableau.
  * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
- * \param tlog Pointeur sur le nombre total d'offres dans le tableau.
- * \param tNumEtu[] Tableau des numéros des étudiants.
- * \param tRefStage[] Tableau des références de stages associés aux étudiants.
- * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants.
- * \return 1 si l'affectation a réussi, -1 en cas d'erreur ou si le stage est déjà complet.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlog Taille logique du tableau.
+ * \return 1 si le stage a été supprimé avec succès, -1 si le stage n'a pas été trouvé.
  */
-int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
-    int ref, place, x;
+int supprimerStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog) {
+    int ref, dept, code;
+    printf("\nNuméro de référence du stage à supprimer: ");
+    scanf("%d", &ref);
 
-    printf("\nStages disponibles :\n");
+    code = decalerAgauche(tRef, tDpt, tPourvu, tCandid, tEtu1, tEtu2, tEtu3, tlog, ref);
+    if (code == 1) return 1; // Aucun problème
+    else return -1; // Stage non trouvé
+}
+
+/**
+ * \brief Affiche les stages disponibles
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tlog Taille logique du tableau des offres de stages.
+ */
+void StagesDispo(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlog) {
     for (int i = 0; i < *tlog; i++) {
         if (tPourvu[i] == 0 && tCandid[i] >= 1) {
             printf("Référence: %d, Département: %d, Nombre de candidature: %d\n", tRef[i], tDpt[i], tCandid[i]);
         }
     }
+}
+
+/**
+ * \brief Affecte un étudiant à un stage spécifique.
+ * 
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlog Taille logique du tableau des offres de stages.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
+ * \return 1 si l'affectation a réussi, -1 si pas candidat, -2 si le stage existe pas.
+ */
+int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlog, int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
+    int ref, place, x;
+
+    printf("\nStages disponibles :\n");
+    StagesDispo(tRef, tDpt, tPourvu, tCandid, tlog);
 
     printf("\nNuméro de référence du stage: ");
     scanf("%d", &ref);
@@ -543,11 +542,8 @@ int affecterEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int t
 
 /**
  * \brief Affiche le menu du responsable.
- *
- * Cette fonction présente les différentes options disponibles pour un responsable,
- * comme la gestion des stages et les affectations des étudiants.
  * 
- * \return Le choix de l'utilisateur correspondant à une option du menu.
+ * \return Le choix de l'utilisateur.
  */
 int menuResponsable(void) {
     int choix;
@@ -569,25 +565,23 @@ int menuResponsable(void) {
 }
 
 /**
- * \brief Gère les actions principales du responsable de stage.
- * 
- * Cette fonction permet au responsable de gérer les stages disponibles. 
- * Le responsable peut ajouter, supprimer, modifier des stages et voir les candidatures 
- * des étudiants. Elle gère l'interaction avec les tableaux des stages et étudiants.
+ * \brief Gère les actions du responsable de stage.
  * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
  * \param tNumEtu[] Tableau des numéros des étudiants.
- * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
  * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
- * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
- * \param tmaxOffre Nombre maximal d'offres dans le tableau.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
- * \param tmaxEtu Nombre maximal d'étudiants dans le tableau.
- * \return 1 si toutes les actions ont été effectuées avec succès.
+ * \param tlogOffre Taille logique du tableau des offres de stages.
+ * \param tmaxOffre Taille physique du tableau des offres de stages.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
+ * \param tmaxEtu Taille physique du tableau d'étudiants.
+ * \return 1 si toutes les actions ont été effectuées avec succès, -1 si une erreur est survenue.
  */
 int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
     int choix, code;
@@ -657,10 +651,12 @@ int globalResponsable(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int 
 /**
  * \brief Affiche la liste des stages disponibles.
  * 
- * Cette fonction permet d'afficher la liste complète des stages en indiquant 
- * pour chaque stage sa référence, son département, et si le stage est pourvu ou non.
- * 
- * \return 1 si l'affichage s'est bien déroulé, -1 en cas d'erreur.
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tlogOffre Taille logique du tableau des offres de stages
+ * \return 1 si l'affichage s'est bien déroulé.
  */
 int listeStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlogOffre) {
     printf("\nListe des stages disponibles :\n");
@@ -679,7 +675,17 @@ int listeStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int *tlogOf
 /**
  * \brief Permet à un étudiant de candidater à un stage.
  *
- * Cette fonction gère la soumission d'une candidature par un étudiant pour un stage donné.
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlogOffre Taille logique du tableau des offres de stages
+ * \param tlogEtu Taille logique du tableau d'étudiants.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param etudiantID ID de l'étudiant qui candidate.
  */
 int candidaterStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int *tlogOffre, int *tlogEtu, int tNumEtu[], int etudiantID) {
     int refStage, foundStage = 0;
@@ -724,18 +730,16 @@ int candidaterStage(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tE
 /**
  * \brief Permet de voir les candidatures d'un étudiant.
  * 
- * Cette fonction affiche les stages auxquels un étudiant a candidaté et montre si l'étudiant
- * a déjà été affecté à un stage. Elle permet aussi de consulter les informations relatives 
- * aux stages disponibles.
- * 
  * \param tNumEtu[] Tableau des numéros des étudiants.
- * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants.
- * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
+ * \param tlogOffre Taille logique du tableau des offres de stages.
  * \param etudiantID Identifiant de l'étudiant concerné.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
  * \return 0 si la consultation s'est bien déroulée, -1 en cas d'erreur.
@@ -777,15 +781,12 @@ int voirCandidature(int tNumEtu[], int tRefStage[], int tRef[], int tDpt[], int 
 }
 
 /**
- * \brief Vérifie l'identité d'un étudiant à partir de son identifiant.
- * 
- * Cette fonction permet de vérifier si un étudiant est bien enregistré dans le système
- * en comparant l'identifiant saisi avec ceux présents dans le tableau des étudiants.
+ * \brief Vérifie si l'étudiant existe à partir de son identifiant.
  * 
  * \param id Identifiant de l'étudiant.
  * \param tNumEtu[] Tableau des numéros des étudiants.
- * \param tlogEtu Nombre total d'étudiants dans le tableau.
- * \return 1 si l'étudiant est trouvé, 0 sinon.
+ * \param tlogEtu Taille logique du tableau.
+ * \return 1 si l'étudiant est trouvé, -1 sinon.
  */
 int verifieLogin(int id, int tNumEtu[], int tlogEtu) {
     for (int i = 0; i < tlogEtu; i++) {
@@ -797,10 +798,7 @@ int verifieLogin(int id, int tNumEtu[], int tlogEtu) {
 }
 
 /**
- * \brief Gère la procédure de connexion pour les étudiants.
- * 
- * Cette fonction permet aux étudiants de se connecter en saisissant leur identifiant. 
- * La connexion est validée en vérifiant l'existence de l'identifiant dans le tableau des étudiants.
+ * \brief Gère la connexion des étudiants.
  * 
  * \return L'identifiant de l'étudiant.
  */
@@ -814,10 +812,7 @@ int login(void) {
 /**
  * \brief Affiche le menu pour les étudiants.
  * 
- * Cette fonction présente les options disponibles pour les étudiants, incluant la consultation 
- * des stages disponibles, la gestion des candidatures, et la déconnexion.
- * 
- * \return Le choix de l'étudiant, correspondant à une des options du menu.
+ * \return Le choix de l'étudiant.
  */
 int menuEtudiant(void) {
     int choix;
@@ -831,6 +826,25 @@ int menuEtudiant(void) {
     return choix;
 }
 
+/**
+ * \brief Gère les actions de l'étudiant.
+
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
+ * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogOffre Taille logique du tableau des offres de stages.
+ * \param tmaxOffre Taille physique du tableau des offres de stages.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
+ * \param tmaxEtu Taille physique du tableau d'étudiants.
+ * \return 1 si toutes les actions ont été effectuées avec succès, -1 en cas d'erreur.
+ */
 int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
     int choix, code, id;
     
@@ -880,13 +894,10 @@ int globalEtudiant(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEt
 /**
  * \brief Ajoute les notes pour un étudiant dans le tableau.
  * 
- * Cette fonction permet de rechercher un étudiant dans le tableau à partir de son ID
- * et d'ajouter ses notes pour l'entreprise, le rapport, et la soutenance.
- * 
- * \param tNumEtu[] Tableau contenant les IDs des étudiants.
- * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
- * \return La moyenne calculée si tout s'est bien passé, sinon les codes d'erreurs
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogEtu Taille logique du tableau.
+ * \return La moyenne calculée si tout s'est bien passé, sinon -1.
  */
 int ajouterNotes(int tNumEtu[], float tNoteFinal[], int *tlogEtu) { 
     int idEtu;
@@ -924,11 +935,9 @@ int ajouterNotes(int tNumEtu[], float tNoteFinal[], int *tlogEtu) {
 /**
  * \brief Affiche les notes des étudiants.
  * 
- * Cette fonction affiche les informations des étudiants, incluant leur numéro et leur note finale.
- * 
- * \param tNumEtu[] Tableau contenant les IDs des étudiants.
- * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogEtu Taille logique du tableau.
  * \return 1 si l'affichage a été effectué correctement, -1 si aucun étudiant n'est à afficher.
  */
 int afficherNotes(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogEtu) {
@@ -944,8 +953,6 @@ int afficherNotes(int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogE
 /**
  * \brief Affiche le menu pour le jury.
  * 
- * Cette fonction affiche un menu simple permettant au jury de choisir une action.
- * 
  * \return Le choix de l'utilisateur.
  */
 int menuJury(void) {
@@ -960,26 +967,22 @@ int menuJury(void) {
 }
 
 /**
- * \brief Gère les actions du jury sur les offres de stages et les notes des étudiants.
+ * \brief Gère les actions du jury.
  * 
- * Cette fonction permet d'ajouter des notes aux étudiants ou d'afficher les notes 
- * déjà présentes. Elle gère également la sauvegarde des modifications dans les fichiers 
- * une fois les actions terminées.
- * 
- * \param tRef[] Tableau contenant les références des stages.
- * \param tDpt[] Tableau contenant les départements associés aux stages.
+ * \param tRef[] Tableau des références des stages.
+ * \param tDpt[] Tableau des départements associés aux stages.
  * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[] Tableau contenant les IDs des premiers étudiants affectés aux stages.
- * \param tEtu2[] Tableau contenant les IDs des seconds étudiants affectés aux stages.
- * \param tEtu3[] Tableau contenant les IDs des troisièmes étudiants affectés aux stages.
- * \param tNumEtu[] Tableau contenant les IDs des étudiants.
- * \param tRefStage[] Tableau contenant les références de stages associées aux étudiants.
- * \param tNoteFinal[] Tableau contenant les moyennes finales des étudiants.
- * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
- * \param tmaxOffre Taille maximale du tableau des offres.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
- * \param tmaxEtu Taille maximale du tableau des étudiants.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
+ * \param tNumEtu[] Tableau des numéros des étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
+ * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
+ * \param tlogOffre Taille logique du tableau des offres de stages.
+ * \param tmaxOffre Taille physique du tableau des offres de stages.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
+ * \param tmaxEtu Taille physique du tableau d'étudiants.
  * \return 1 si toutes les actions ont été effectuées avec succès, -1 en cas d'erreur.
  */
 int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[], int tEtu2[], int tEtu3[], int tNumEtu[], int tRefStage[], float tNoteFinal[], int *tlogOffre, int tmaxOffre, int *tlogEtu, int tmaxEtu) {
@@ -1013,12 +1016,9 @@ int globalJury(int tRef[], int tDpt[], int tPourvu[], int tCandid[], int tEtu1[]
 
 
 /**
- * \brief Affiche le menu principal du programme pour la sélection de l'utilisateur.
+ * \brief Affiche le menu principal du programme.
  * 
- * Cette fonction présente les différentes options aux utilisateurs pour qu'ils puissent
- * sélectionner leur rôle : étudiant, responsable ou jury.
- * 
- * \return Le choix de l'utilisateur sous forme d'un entier correspondant à une option du menu.
+ * \return Le choix de l'utilisateur.
  */
 int menuGlobal(void) {
     int choix;
@@ -1033,25 +1033,24 @@ int menuGlobal(void) {
 }
 
 /**
- * \brief Gère les actions principales du système de gestion de stages.
- * 
- * Cette fonction permet de choisir qui on est.
+ * \brief Gère les actions principales de l'application.
  * 
  * \param choix Le choix de l'utilisateur.
  * \param code Le code de retour des différentes fonctions
- * 
  * \param tRef[] Tableau des références des stages.
  * \param tDpt[] Tableau des départements associés aux stages.
- * \param tPourvu[] Tableau indiquant si le stage est pourvu.
+ * \param tPourvu[] Tableau indiquant si un stage est pourvu.
  * \param tCandid[] Tableau contenant le nombre de candidatures pour chaque stage.
- * \param tEtu1[], tEtu2[], tEtu3[] Tableaux des étudiants affectés aux stages.
+ * \param tEtu1[] Tableau contenant l'ID 1 de l'étudiant qui candidate aux stages.
+ * \param tEtu2[] Tableau contenant l'ID 2 de l'étudiant qui candidate aux stages.
+ * \param tEtu3[] Tableau contenant l'ID 3 de l'étudiant qui candidate aux stages.
  * \param tNumEtu[] Tableau des numéros des étudiants.
- * \param tRefStage[] Tableau des références des stages associés aux étudiants.
+ * \param tRefStage[] Tableau des références de stages associés aux étudiants.
  * \param tNoteFinal[] Tableau des moyennes finales des étudiants.
- * \param tlogOffre Pointeur sur le nombre total d'offres dans le tableau.
- * \param tmaxOffre Nombre maximal d'offres dans le tableau.
- * \param tlogEtu Pointeur sur le nombre total d'étudiants dans le tableau.
- * \param tmaxEtu Nombre maximal d'étudiants dans le tableau.
+ * \param tlogOffre Taille logique du tableau des offres de stages.
+ * \param tmaxOffre Taille physique du tableau des offres de stages.
+ * \param tlogEtu Taille logique du tableau d'étudiants.
+ * \param tmaxEtu Taille physique du tableau d'étudiants.
  */
 void global(void) {
     int choix, code;
