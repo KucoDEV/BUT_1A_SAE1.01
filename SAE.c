@@ -1,8 +1,8 @@
 /**
  * \file SAE.c
- * \brief Application de gestions de stages.
+ * \brief Fichier contenant les fonctions du programme de gestion des stages.
  * \authors MIOTTO Quentin, PICHOT-MOÏSE Mathéo
- * \date 15 Novembre 2024
+ * \date 15 Octobre 2024
  */
 #include "SAE.h"
 

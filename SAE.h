@@ -3,7 +3,7 @@
  * \brief Fichier contenant les déclarations des fonctions du programme de gestion des stages.
  *
  * \authors MIOTTO Quentin, PICHOT-MOÏSE Mathéo
- * \date 15 Novembre 2024
+ * \date 15 Octobre 2024
  */
 #include <stdio.h>
 #include <stdlib.h>
